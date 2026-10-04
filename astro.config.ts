@@ -11,7 +11,7 @@ import { rehypeBasePath } from './src/lib/rehype-base-path'
 import { rehypeCodeMeta } from './src/lib/rehype-code-meta'
 import { rehypeSecurity } from './src/lib/rehype-security'
 import { shikiAuroraTransformer } from './src/lib/shiki-aurora'
-import { localTwikooAssets, twikooAssetDirectory } from './scripts/local-twikoo-assets.mjs'
+import { createLocalCommentAssetMiddleware } from './scripts/local-comment-assets.mjs'
 
 type RemarkPluginFunction = Exclude<RemarkPlugins[number], string | readonly unknown[]>
 
@@ -20,21 +20,12 @@ export default defineConfig({
   integrations: [vue()],
   vite: {
     plugins: [{
-      name: 'aurora-local-twikoo-dev-assets',
+      name: 'aurora-local-comment-dev-assets',
       apply: 'serve',
       configureServer(server) {
         if (config.siteMeta.cdn !== 'cn') return
-        const assets = localTwikooAssets(config.site.base)
-        const assetPath = `${config.site.base}${twikooAssetDirectory}/`
-        server.middlewares.use((request, response, next) => {
-          const path = request.url?.split('?')[0]
-          if (!path?.startsWith(assetPath)) return next()
-          const name = path.slice(assetPath.length)
-          const body = assets.get(name)
-          if (!body) return next()
-          response.setHeader('Content-Type', name.endsWith('.wasm') ? 'application/wasm' : name.endsWith('.json') ? 'application/json' : 'application/javascript')
-          response.end(body)
-        })
+        // Astro strips site.base before Vite middleware sees the request.
+        server.middlewares.use(createLocalCommentAssetMiddleware(config.site.base))
       },
     }],
   },

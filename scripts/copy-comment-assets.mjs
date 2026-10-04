@@ -6,6 +6,7 @@ import { distributionInventory, inventoryLabel, inventoryLicenseTarget, incomple
 import { embeddedSourceNotices, embeddedNoticeTarget } from './embedded-source-notices.mjs'
 
 const root = resolve(import.meta.dirname, '..')
+const { version } = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8'))
 const { input, cdn } = readBuildConfig({ cwd: root })
 const base = process.env.ASTRO_BASE || input.site?.base || '/'
 const dist = resolve(root, 'dist')
@@ -31,7 +32,7 @@ if (cdn === 'cn') {
 }
 
 const notices = [
-  'Aurora 3.0.0 third-party distribution notices',
+  `Aurora ${version} third-party distribution notices`,
   '===========================================',
   '',
   'This inventory records material present in Aurora deployable output.',

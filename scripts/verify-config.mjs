@@ -38,7 +38,7 @@ try {
   assert.equal(cnReaction.comments.waline.reaction, false)
   assert.match(reactionWarnings.join(' '), /reaction: true is unavailable.*cdn: cn/i)
   assert.equal(load('site_meta:\n  cdn: en\ncomments:\n  waline:\n    reaction: true\n').comments.waline.reaction, true)
-  for (const bad of ['auto', 'zh-CN']) throwsWith(() => load(`site_meta:\n  cdn: ${bad}\n`), /site_meta\.cdn/)
+  for (const bad of ['auto', 'zh-CN', 'true', 'false', '42', 'null', '[]', '{}', '""']) throwsWith(() => load(`site_meta:\n  cdn: ${bad}\n`), /site_meta\.cdn/)
   throwsWith(() => load('site_meta:\n  cdn: cn\n  unknown: value\n'), /site_meta: unknown key: unknown/)
   const migrated = load('site_meta:\n  cdn: cn\n  description: Legacy description\n  keywords: one, two\n')
   assert.equal(migrated.siteMeta.cdn, 'cn')

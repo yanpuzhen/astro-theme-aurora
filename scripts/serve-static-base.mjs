@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url'
 const root = resolve(fileURLToPath(new URL('../dist/', import.meta.url)))
 const args = new Map()
 for (let index = 2; index < process.argv.length; index += 2) args.set(process.argv[index], process.argv[index + 1])
-const base = `/${(args.get('--base') || 'aurora').replace(/^\/+|\/+$/g, '')}`
+const base = `/${(args.get('--base') || process.env.PLAYWRIGHT_BASE_PATH || 'aurora').replace(/^\/+|\/+$/g, '')}`
 const port = Number(args.get('--port') || 4321)
 
 const contentTypes = {

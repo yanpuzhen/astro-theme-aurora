@@ -16,7 +16,8 @@ Aurora 3 是静态 Astro 实现，不是对 Hexo runtime 的原地升级。请�
 | 根级 provider 区块 | `comments.provider` + `comments.<provider>` | 规范化选定的 camelCase 别名。 |
 | `aurora_bot` | `dia` | 重命名并警告。 |
 | `site.beian` / `police_beian` | `footer.beian` | 移动并警告。 |
-| `site_meta` | `site` / `seo` | 部分映射并警告。 |
+| `site_meta.description/keywords/author/favicon` | `site` / `seo` | 受支持的元数据映射并警告。 |
+| `site_meta.cdn` | `site_meta.cdn` | 保留 `en` / `cn`；CN 改为本站托管 Aurora 管理的静态运行时资源。 |
 | `busuanzi` | 无 | 不包含统计后端。 |
 | `authors`、`copy_protection`、`injects`、`footer_links`、旧 Shiki 设置 | 无 | 不支持；会通过警告说明。 |
 
@@ -55,3 +56,7 @@ Aurora 3 已移除 Gitalk 运行时。上游 Gitalk 需要浏览器端 OAuth cli
 6. 运行 `pnpm check`、`pnpm build`，并按需要执行迁移专用浏览器检查。按[部署指南](/cn/deploy/)发布普通 `dist/` 产物；用户博客不需要仓库维护者的 Docs/Demo Pages 脚本。
 
 Astro 负责静态路由、内容、SEO、feeds 和 HTML。Vue Router、SPA 文章状态、runtime `/api/*.json`、统计后端、不安全的 Gitalk 静态 secret 流程及自动执行 Markdown script 均不属于 Aurora 3。
+
+## CDN 配置迁移
+
+Aurora 2 的 `site_meta.cdn: en` 或 `cn` 在 Aurora 3 中仍为同名配置。`cn` 现在表示将 Aurora 管理的静态运行时依赖随站点托管；旧版 `site_meta.description` 等受支持元数据仍迁移到 `site` / `seo`。未知字段和非法 CDN 值会导致构建失败。

@@ -47,7 +47,8 @@ comments:
 | root `gitalk` | no runtime destination | Detected for a migration warning, then discarded without reading field values |
 | `site.beian`, `police_beian` | `footer.beian` | MOVED |
 | `aurora_bot` | `dia` | RENAMED; emits a warning |
-| `site_meta` | `site` / `seo` | PARTIAL replacement; emits a warning |
+| `site_meta.description/keywords/author/favicon` | `site` / `seo` | Supported metadata maps with a warning |
+| `site_meta.cdn` | `site_meta.cdn` | `en` / `cn` preserved; CN self-hosts Aurora-managed runtime assets |
 | `busuanzi` | none | REMOVED; live analytics is not included |
 | `authors`, `copy_protection`, `injects`, `footer_links`, legacy `shiki` tuning | none | NOT SUPPORTED; warns rather than emulating Hexo runtime |
 

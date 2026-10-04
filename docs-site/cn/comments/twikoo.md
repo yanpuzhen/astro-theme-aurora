@@ -20,3 +20,5 @@ comments:
 ```
 
 CloudBase 则把 `env_id` 改成不带 `https://` 的环境 ID，并仅在需要时设置 `region`。Aurora 对非 HTTP 环境 ID 选用包含 CloudBase SDK 的客户端，对 HTTP(S) 端点选用常规客户端。构建后在真实文章发表评论，验证管理与最新评论，并测试两种语言路径。最新评论依赖后端/API 可达。其他托管方式见[官方后端指南](https://twikoo.js.org/en/backend.html)；Aurora 不负责部署它们。
+
+CN 分发模式下，`SHOW_EMOTION=true` 使用 Aurora 的本地 Unicode OwO 表情集；后端 `EMOTION_CDN` URL 不改变该表情集。Cap 验证码使用固定版本的本站组件、WASM 和备用资源；挑战、兑换与服务端验证流程仍启用。EN 分发保留 Twikoo 上游资源。

@@ -22,6 +22,7 @@ const settings = provider === 'giscus' ? config.comments.giscus
       legacyPath={commentPath}
       title={title}
       locale={locale}
+      cdnMode={config.siteMeta.cdn}
       settings={settings}
       labels={{ loading: messages.commentLoading, setupMissing: messages.commentSetupMissing, loadError: messages.commentLoadError }}
       noScriptText={messages.commentsRequireJavaScript}

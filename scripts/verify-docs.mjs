@@ -46,6 +46,13 @@ const configText = readFileSync(config, 'utf8')
 assert.match(configText, /rewrites: \{ 'en\/:path\*': ':path\*' \}/, 'English canonical rewrite changed')
 
 const sourceFiles = [resolve(root, 'index.md'), ...markdownFiles(english), ...markdownFiles(chinese)]
+for (const localeRoot of [english, chinese]) {
+  const guidance = readFileSync(resolve(localeRoot, 'guide/configuration.md'), 'utf8')
+  const waline = readFileSync(resolve(localeRoot, 'comments/waline.md'), 'utf8')
+  assert.match(guidance + waline, /@waline\/emojis@1\.1\.0[\s\S]*GPL-3\.0-or-later/)
+  assert.doesNotMatch(guidance + waline, /GPL-3\.0-only|GPL-3\.0-or-later[^\n]*(?:incompatible|不兼容)/)
+}
+assert.doesNotMatch(readFileSync(resolve(root, '..', 'CHANGELOG.md'), 'utf8').split('## [3.0.0]')[0], /GPL-3\.0-only/)
 const links = new Set()
 for (const file of sourceFiles) {
   const source = readFileSync(file, 'utf8')

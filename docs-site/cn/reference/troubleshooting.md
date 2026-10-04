@@ -18,3 +18,7 @@
 | 搜索无结果 | 用 `pnpm build` 让 Pagefind 索引 `dist/`；确认当前语言有公开文章，结果路径包含 base。 |
 
 GitHub Pages 请核查 **Settings → Pages** 使用 GitHub Actions 且工作流发布 `dist`；见[部署指南](/cn/deploy/github-pages)。Cloudflare Pages 或 Vercel 请查看托管商构建日志、生产分支、环境变量作用范围与输出目录。部署页面 404 并不能证明评论服务失败；应分别测试各层。
+
+## CDN 模式
+
+若 CN 模式仍出现公共 CDN 请求，先确认重新构建并部署了完整 `dist/`，再用浏览器网络面板区分 Aurora 静态资源与评论后端、头像、用户内容。尤其检查旧页面或缓存是否仍在使用 EN 构建。

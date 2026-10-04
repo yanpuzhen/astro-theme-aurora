@@ -11,3 +11,7 @@ Aurora's blog is static; comments use a separate service. Leave `comments.provid
 | [Gitalk](/comments/gitalk-migration) | Removed; GitHub Issues | GitHub OAuth | Not available in Aurora 3 | No | Convert Issues to Discussions and verify. |
 
 Set the provider and its **public** client settings in `_config.yml`; build and test on a real post. `comments.recent_comments.enabled` defaults to `true` and `count` to `5`, but only Waline and Twikoo have Aurora Recent Comments adapters. For giscus and Valine, an empty/unavailable sidebar state is expected. Keep passwords, database URLs, PATs, OAuth secrets and admin credentials on the provider infrastructure. See [Configuration](/guide/configuration) for field defaults.
+
+## CDN delivery mode
+
+EN retains existing public-CDN clients. CN self-hosts Valine, Twikoo (including CloudBase), Waline and their static dependencies. The giscus client is already bundled; giscus.app remains external. Recent Comments uses the same delivery mode as article comments.

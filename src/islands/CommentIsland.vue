@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { commentIdentity, commentIdentityAliases, type CommentProvider } from '../lib/comments'
-import { loadProviderClient } from '../lib/comment-adapters'
+import { loadProviderClient, type CdnMode } from '../lib/comment-adapters'
 import GiscusComment from './GiscusComment.vue'
 
 interface ProviderSettings { [key: string]: string | number | boolean | readonly string[] | undefined }
@@ -13,6 +13,7 @@ interface Props {
   legacyPath: string
   title: string
   locale: 'en' | 'zh-CN'
+  cdnMode?: CdnMode
   settings: ProviderSettings
   labels: Labels
   noScriptText: string
@@ -56,6 +57,7 @@ onMounted(async () => {
   try {
     const client = await loadProviderClient(props.provider, {
       twikooEnvId: props.provider === 'twikoo' ? String(props.settings.envId || '') : undefined,
+      cdnMode: props.cdnMode,
     })
     if (props.provider === 'valine') {
       const Valine = client as unknown as new (options: Record<string, unknown>) => unknown

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import type { CommentProvider } from '../lib/comment-adapters'
+import type { CdnMode, CommentProvider } from '../lib/comment-adapters'
 import { fetchRecentComments, type RecentComment } from '../lib/recent-comments'
 
 interface Settings { twikoo: { envId: string; region: string }; waline: { serverUrl: string; language: string } }
@@ -11,6 +11,7 @@ const props = defineProps<{
   base: string
   siteOrigin: string
   locale: 'en' | 'zh-CN'
+  cdnMode?: CdnMode
   emptyText: string
   loadingText: string
   errorText: string
@@ -20,7 +21,7 @@ const status = ref<'loading' | 'ready' | 'error'>('loading')
 
 onMounted(async () => {
   try {
-    comments.value = await fetchRecentComments(props.provider, props.settings, props.count, props.base, props.siteOrigin)
+    comments.value = await fetchRecentComments(props.provider, props.settings, props.count, props.base, props.siteOrigin, props.cdnMode)
     status.value = 'ready'
   } catch {
     status.value = 'error'

@@ -18,3 +18,5 @@ comments:
 ```
 
 Replace placeholders with your application's public values. Aurora loads its pinned Valine 1.5.3 client. Build and test a comment from the final domain; check the actual LeanCloud record and security-domain settings if requests fail. Aurora does not provide Valine Recent Comments, and Valine-Admin is not a required Aurora component. Preserve old data and compare page paths before migration.
+
+In CN delivery mode, Valine's built-in emoji picker is removed because its default Sina images are not locally distributable. Plain-text comments remain available. The LeanCloud endpoint and client credentials follow the same Valine initialization rules in EN and CN. Valine's optional IP lookup at `pubstatic.b0.upaiyun.com` is a service request for comment metadata, not a static client asset.

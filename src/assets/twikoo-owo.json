@@ -1,0 +1,13 @@
+{
+  "Unicode": {
+    "type": "emoji",
+    "container": [
+      { "text": "smile", "icon": "😀" },
+      { "text": "laugh", "icon": "😄" },
+      { "text": "heart", "icon": "❤️" },
+      { "text": "thumbs up", "icon": "👍" },
+      { "text": "thinking", "icon": "🤔" },
+      { "text": "wave", "icon": "👋" }
+    ]
+  }
+}

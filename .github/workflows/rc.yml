@@ -56,5 +56,18 @@ jobs:
       - name: Run standalone browser checks
         run: pnpm run test:browser
 
+      - name: Verify missing configuration complete-build fallback
+        run: pnpm test:cdn:missing-config
+
+      - name: Run CN production asset parity and regional API checks
+        run: |
+          pnpm test:browser:cdn:cn
+          pnpm exec playwright test tests/browser/cdn-assets.spec.ts tests/browser/valine-parity.spec.ts
+
+      - name: Run CN root and nested development asset parity
+        run: |
+          pnpm test:browser:cdn:dev
+          PLAYWRIGHT_BASE_PATH=/blog/theme pnpm test:browser:cdn:dev
+
       - name: Run combined Pages browser checks
         run: pnpm run test:browser:pages

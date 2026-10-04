@@ -18,3 +18,5 @@ comments:
 ```
 
 用应用的公开值替换占位符。Aurora 加载固定的 Valine 1.5.3 客户端。构建后从最终域名测试评论；请求失败时核查实际 LeanCloud 记录和安全域名设置。Aurora 不提供 Valine 最新评论，Valine-Admin 不是 Aurora 的必需组件。迁移前保留旧数据并比较页面路径。
+
+CN 分发模式会移除 Valine 内置表情选择器，因为其默认新浪图片不能作为本站资源分发。纯文本评论仍可使用。EN 与 CN 遵循相同的 Valine LeanCloud 端点及客户端凭据初始化规则。`pubstatic.b0.upaiyun.com` 的可选 IP 查询是评论元数据服务请求，不是静态客户端资源。

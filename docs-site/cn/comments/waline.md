@@ -21,3 +21,5 @@ comments:
 ```
 
 `server_url` 必须是绝对 HTTP(S) URL。`login` 可选 `enable`、`disable`、`force`；`comment_sorting` 可选 `latest`、`oldest`、`hottest`。其他默认值和限制见[基础配置](/cn/configs/general)。重新构建 Aurora，在真实文章发表评论并测试管理。启用时 Aurora 可从 Waline 获取最新评论，但取决于服务端可达和 API 正常。检查侧栏、路径身份和两种语言；改变路径或服务端前保留旧记录。
+
+使用 `site_meta.cdn: cn` 时，Aurora 禁用 Waline 内置表情包和反应图片，因为默认资源来自公共静态 CDN。若设置 `reaction: true`，构建会给出警告并将其规范化为 `false`。EN 模式保持 Waline 上游行为。默认 `@waline/emojis@1.1.0` 包声明 `GPL-3.0-or-later`；Aurora 不在 CN 模式分发它。

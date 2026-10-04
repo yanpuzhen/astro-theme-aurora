@@ -12,6 +12,10 @@ site:
   url: https://example.com # Set this to your canonical origin before deployment.
   base: / # Use /blog/theme/ when deployed below a subdirectory.
 
+site_meta:
+  # en keeps existing public-CDN comment clients; cn bundles Aurora-managed runtime assets locally.
+  cdn: en
+
 i18n:
   default_locale: en
   locales: [en, zh-CN] # Fixed supported locales; do not add unsupported languages.

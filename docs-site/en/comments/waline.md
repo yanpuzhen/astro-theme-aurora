@@ -21,3 +21,5 @@ comments:
 ```
 
 `server_url` must be an absolute HTTP(S) URL. `login` accepts `enable`, `disable`, or `force`; `comment_sorting` accepts `latest`, `oldest`, or `hottest`. Other defaults and limits are in [General Configuration](/configs/general). Rebuild Aurora, then post and moderate a test comment on a real article. Aurora can fetch provider-backed Recent Comments for Waline when enabled, but this depends on the server being reachable and its API responding. Check the sidebar, path identity and both locales; keep old records before changing paths or servers.
+
+With `site_meta.cdn: cn`, Aurora disables Waline's built-in emoji set and reaction images because those defaults request public static assets. If you set `reaction: true`, the build prints a warning and normalizes it to `false`. The EN mode keeps Waline's upstream behavior. The default `@waline/emojis@1.1.0` package declares `GPL-3.0-or-later`; Aurora does not redistribute it in CN.

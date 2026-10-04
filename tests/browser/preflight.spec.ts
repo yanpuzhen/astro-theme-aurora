@@ -25,6 +25,15 @@ async function mockProviderAssets(page: import('@playwright/test').Page, brokenT
   }))
 }
 
+test('EN CloudBase uses the existing bundled Twikoo CDN client', async ({ page }) => {
+  const requests: string[] = []
+  page.on('request', (request) => requests.push(request.url()))
+  await mockProviderAssets(page)
+  await page.goto(route('/preflight/cloudbase/'))
+  await expect.poll(() => requests.some((url) => url === 'https://cdn.jsdelivr.net/npm/twikoo@2.0.8/dist/twikoo.all.min.js')).toBe(true)
+  expect(requests.some((url) => /\/twikoo\.min\.js$/.test(url))).toBe(false)
+})
+
 test('validated YAML settings reach the rendered static UI and none loads no provider assets', async ({ page }) => {
   const providerRequests: string[] = []
   page.on('request', (request) => {

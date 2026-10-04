@@ -64,7 +64,7 @@ const socialIcon = (icon: 'github' | 'link'): 'github' | 'link' => icon
     {showcase ? <ul class="recent-comment-list">{demoComments[locale].map((comment) => <li><img src={comment.avatar} alt="" loading="lazy" /><div><a href={commentHref(comment, locale)}>{comment.name}</a><p>{comment.text}</p><time datetime={comment.date}>{comment.date}</time></div></li>)}</ul>
       : !config.comments.enabled ? <p class="empty-state"><span aria-hidden="true"></span> {messages.noCommentsConfigured}</p>
         : config.comments.recentComments.enabled && adapterFor(config.comments.provider).supportsRecentComments && (config.comments.provider === 'twikoo' || config.comments.provider === 'waline')
-          ? <RecentCommentsIsland client:visible provider={config.comments.provider} settings={{ twikoo: config.comments.twikoo, waline: config.comments.waline }} count={config.comments.recentComments.count} base={import.meta.env.BASE_URL} siteOrigin={config.site.url} locale={locale} emptyText={messages.noRecentComments} loadingText={messages.recentCommentsLoading} errorText={messages.recentCommentsLoadError} />
+          ? <RecentCommentsIsland client:visible provider={config.comments.provider} settings={{ twikoo: config.comments.twikoo, waline: config.comments.waline }} count={config.comments.recentComments.count} base={import.meta.env.BASE_URL} siteOrigin={config.site.url} locale={locale} cdnMode={config.siteMeta.cdn} emptyText={messages.noRecentComments} loadingText={messages.recentCommentsLoading} errorText={messages.recentCommentsLoadError} />
           : <p class="empty-state"><span aria-hidden="true"></span> {messages.noRecentComments}</p>}
   </section>
 </aside>

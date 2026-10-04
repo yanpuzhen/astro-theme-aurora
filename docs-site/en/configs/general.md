@@ -14,6 +14,8 @@ site:
   started_date: '' # optional YYYY-MM-DD
   url: https://example.com # origin only; no path/query/fragment
   base: / # /, /aurora/, /blog/theme/, etc.
+site_meta:
+  cdn: en # en | cn; asset delivery, independent of language
 theme:
   feature: true
   dark_mode: true
@@ -29,6 +31,7 @@ socials:
 | Section | Supported purpose / validation |
 | --- | --- |
 | `site` | Title, subtitle, author, description, avatar/logo, display language, real `YYYY-MM-DD`, origin-only HTTP(S) URL, safe base path. |
+| `site_meta` | `cdn: en` (default) or `cn`; strict build-time asset delivery mode. No environment override. |
 | `i18n` | Fixed English default and `[en, zh-CN]`; this is not a language-plugin interface. |
 | `theme` | Feature selection, initial light/dark appearance, profile shape, three hex gradient colors. |
 | `menu` | Boolean switches for the six built-in routes; labels and route structure are localized/fixed. |
@@ -116,7 +119,7 @@ Select one `comments.provider`: `none` (default), `giscus`, `waline`, `twikoo`, 
 | `comments.giscus.loading` | `eager` or `lazy`; `eager` | Iframe loading after the Aurora island becomes visible. |
 | `comments.waline.server_url` | HTTP(S) URL or `''`; `''` | Public Waline server endpoint. |
 | `comments.waline.language` | `auto`, `en`, `zh-CN`; `auto` | Client language. |
-| `comments.waline.reaction` | boolean; `false` | Reaction UI. |
+| `comments.waline.reaction` | boolean; `false` | Reaction UI in EN; CN warns and disables `true` because the default images are remote. |
 | `comments.waline.login` | `enable`, `disable`, `force`; `disable` | Login policy. |
 | `comments.waline.meta`, `required_meta` | lists of `nick`, `mail`, `link`; `[nick, mail]`, `[nick]` | Form fields, at most three entries each. |
 | `comments.waline.comment_sorting` | `latest`, `oldest`, `hottest`; `latest` | Sort order. |

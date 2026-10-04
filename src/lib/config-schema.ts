@@ -56,6 +56,8 @@ const siteSchema = z.object({
   base: basePath.default('/'),
 }).strict().default({})
 
+const siteMetaSchema = z.object({ cdn: z.enum(['en', 'cn']).default('en') }).strict().default({})
+
 const themeSchema = z.object({
   feature: z.boolean().default(true),
   dark_mode: z.boolean().default(true),
@@ -190,6 +192,7 @@ const linksSchema = z.array(z.object({
 
 const inputSchema = z.object({
   site: siteSchema,
+  site_meta: siteMetaSchema,
   i18n: z.object({
     default_locale: z.literal('en').default('en'),
     locales: z.tuple([z.literal('en'), z.literal('zh-CN')]).default(['en', 'zh-CN']),
@@ -205,6 +208,7 @@ const inputSchema = z.object({
 }).strict()
 
 export const AuroraConfigSchema = inputSchema.transform((value) => ({
+  siteMeta: { cdn: value.site_meta.cdn },
   site: {
     title: value.site.title,
     subtitle: value.site.subtitle,

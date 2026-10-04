@@ -24,6 +24,8 @@ site:
   started_date: ''
   url: https://example.com
   base: /
+site_meta:
+  cdn: en # en: current public-CDN clients; cn: self-host Aurora runtime assets
 i18n:
   default_locale: en
   locales: [en, zh-CN]
@@ -47,6 +49,10 @@ seo: { keywords: [] }
 ```
 
 Provider-specific comment settings may be omitted while `provider` is `none`; their defaults remain available. Add only the selected provider's section when ready. [Choose a provider](/comments/) and follow its deployment guide before switching it on.
+
+## Asset delivery: EN or CN
+
+Set `site_meta.cdn: en` (the default) to retain Aurora 3.0.0 public-CDN loading for Valine, Twikoo and Waline. Set `site_meta.cdn: cn` to serve their JavaScript, Waline CSS, Valine’s LeanCloud SDK, Twikoo’s optional Prism files, OwO Unicode set, and Cap CAPTCHA assets from your own built site. This is a build-time choice; rebuild and deploy the entire `dist/` directory after changing it. There is no environment override or automatic network fallback. `site.language` and `i18n.default_locale` are independent: `language: zh-CN` with `cdn: en`, and `language: en` with `cdn: cn`, are both valid. Your host may itself use a CDN. In CN, Waline's default emoji set and reactions and Valine's built-in emoji picker are unavailable; see the provider guides. `@waline/emojis@1.1.0` declares `GPL-3.0-or-later`; Aurora does not redistribute that asset set in CN. This engineering choice does not determine license compatibility. Comment backends, giscus.app, avatars and user content remain external services.
 
 ## Common recipes
 

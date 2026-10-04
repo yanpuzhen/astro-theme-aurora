@@ -14,6 +14,8 @@ site:
   started_date: '' # 可选 YYYY-MM-DD
   url: https://example.com # 仅 origin，不含路径、查询或片段
   base: / # 也可为 /aurora/、/blog/theme/ 等
+site_meta:
+  cdn: en # en | cn；静态资源交付，与语言独立
 theme:
   feature: true
   dark_mode: true
@@ -29,6 +31,7 @@ socials:
 | 区块 | 用途与校验 |
 | --- | --- |
 | `site` | 标题、副标题、作者、描述、头像/Logo、显示语言、真实 `YYYY-MM-DD`、仅 origin 的 HTTP(S) URL、安全 base 路径。 |
+| `site_meta` | `cdn: en`（默认）或 `cn`；构建期静态资源交付模式，不提供环境变量覆盖。 |
 | `i18n` | 固定英文默认语言和 `[en, zh-CN]`；不是任意语言插件接口。 |
 | `theme` | 精选逻辑、初始明暗主题、头像形状、三个十六进制渐变色。 |
 | `menu` | 六个内置路由的布尔开关；菜单标签和路由结构固定并本地化。 |
@@ -116,7 +119,7 @@ GFM、KaTeX 数学公式和 Shiki 是始终启用的构建能力，不提供无�
 | `comments.giscus.loading` | `eager` 或 `lazy`；`eager` | Aurora 评论区域进入视口后的 iframe 加载方式。 |
 | `comments.waline.server_url` | HTTP(S) URL 或 `''`；`''` | 公开 Waline 服务端地址。 |
 | `comments.waline.language` | `auto`、`en`、`zh-CN`；`auto` | 客户端语言。 |
-| `comments.waline.reaction` | 布尔；`false` | 表情反应。 |
+| `comments.waline.reaction` | 布尔；`false` | EN 模式的反应按钮；CN 模式设置为 `true` 时给出警告并禁用，因为默认图片来自外部。 |
 | `comments.waline.login` | `enable`、`disable`、`force`；`disable` | 登录策略。 |
 | `comments.waline.meta`、`required_meta` | `nick`、`mail`、`link` 列表；`[nick, mail]`、`[nick]` | 表单字段，各最多 3 项。 |
 | `comments.waline.comment_sorting` | `latest`、`oldest`、`hottest`；`latest` | 排序。 |

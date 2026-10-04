@@ -1,0 +1,2 @@
+# Preserve verbatim upstream legal material, including original trailing spaces.
+scripts/third-party-licenses/** -whitespace

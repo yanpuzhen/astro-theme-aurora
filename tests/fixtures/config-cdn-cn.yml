@@ -1,0 +1,11 @@
+site:
+  language: en
+  url: https://example.com
+site_meta:
+  cdn: cn
+comments:
+  provider: none
+  twikoo:
+    env_id: https://twikoo.example
+  waline:
+    server_url: https://waline.example

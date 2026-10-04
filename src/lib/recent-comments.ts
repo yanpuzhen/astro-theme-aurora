@@ -1,4 +1,4 @@
-import { loadProviderClient, type CommentProvider } from './comment-adapters.ts'
+import { loadProviderClient, type CdnMode, type CommentProvider } from './comment-adapters.ts'
 import type { AuroraConfig } from './config-loader.ts'
 
 export interface RecentComment {
@@ -91,11 +91,12 @@ export async function fetchRecentComments(
   count: number,
   base: string,
   siteOrigin: string,
+  cdnMode: CdnMode = 'en',
 ): Promise<RecentComment[]> {
   let result: unknown
   if (provider === 'twikoo') {
     if (!settings.twikoo.envId) return []
-    const api = await loadProviderClient('twikoo', { twikooEnvId: settings.twikoo.envId })
+    const api = await loadProviderClient('twikoo', { twikooEnvId: settings.twikoo.envId, cdnMode })
     if (typeof api.getRecentComments !== 'function') throw new Error('Twikoo recent-comments API is unavailable')
     result = await (api.getRecentComments as (options: Record<string, unknown>) => Promise<unknown>)({
       envId: settings.twikoo.envId,
@@ -105,7 +106,7 @@ export async function fetchRecentComments(
     })
   } else if (provider === 'waline') {
     if (!settings.waline.serverUrl) return []
-    const api = await loadProviderClient('waline')
+    const api = await loadProviderClient('waline', { cdnMode })
     if (typeof api.RecentComments !== 'function') throw new Error('Waline recent-comments API is unavailable')
     result = await (api.RecentComments as (options: Record<string, unknown>) => Promise<unknown>)({
       serverURL: settings.waline.serverUrl,

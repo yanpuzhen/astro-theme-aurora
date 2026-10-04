@@ -16,7 +16,8 @@ Copy the concepts you use into the root `_config.yml`; routine settings no longe
 | root provider sections | `comments.provider` + `comments.<provider>` | Selected camelCase aliases normalize. |
 | `aurora_bot` | `dia` | Renamed with a warning. |
 | `site.beian` / `police_beian` | `footer.beian` | Moved with a warning. |
-| `site_meta` | `site` / `seo` | Partial mapping with a warning. |
+| `site_meta.description`, `keywords`, `author`, `favicon` | `site` / `seo` | Supported legacy metadata maps with a warning. |
+| `site_meta.cdn` | `site_meta.cdn` | `en` / `cn` retained; CN now self-hosts Aurora-managed static runtime assets. |
 | `busuanzi` | none | No analytics backend is included. |
 | `authors`, `copy_protection`, `injects`, `footer_links`, legacy Shiki options | none | Not supported; warnings explain dropped fields. |
 

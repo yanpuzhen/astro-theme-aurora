@@ -20,3 +20,5 @@ comments:
 ```
 
 For CloudBase, replace `env_id` with its environment ID (without `https://`) and set `region` only if needed. Aurora chooses the bundled CloudBase client for a non-HTTP environment ID and the regular client for an HTTP(S) endpoint. Build, comment on a real article, verify moderation and Recent Comments, and test both locale paths. Recent Comments depends on a reachable backend/API. Other Twikoo hosting methods are in the [official backend guide](https://twikoo.js.org/en/backend.html); Aurora does not deploy them for you.
+
+In CN delivery mode, `SHOW_EMOTION=true` uses Aurora's local Unicode OwO set; backend `EMOTION_CDN` URLs do not change that set. Cap CAPTCHA uses pinned same-origin widget, WASM, and fallback assets. The challenge and redeem requests, including server verification, stay active. EN delivery retains Twikoo's upstream resources.

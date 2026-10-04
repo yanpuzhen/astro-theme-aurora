@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Restored `site_meta.cdn: en | cn`: EN keeps 3.0.0 provider delivery; CN self-hosts Aurora-managed comment clients, Waline CSS, Valine LeanCloud SDK, Twikoo Prism/OwO assets, and Cap CAPTCHA dependencies. CN disables Valine's built-in emoji picker and Waline's default emoji and reaction assets. `@waline/emojis@1.1.0` declares `GPL-3.0-or-later`; Aurora does not redistribute that asset set in CN. Static builds include third-party notices and license texts.
+
 - Completed bilingual end-user guides for configuration, content, deployment, comments, SEO/feeds, environment variables and troubleshooting; expanded navigation and schema reference.
 
 ## [3.0.0] - 2026-09-24

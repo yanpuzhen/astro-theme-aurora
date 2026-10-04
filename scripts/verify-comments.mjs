@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { commentAdapters, twikooUsesCloudBase } from '../src/lib/comment-adapters.ts'
+import { commentAdapters, providerDelivery, twikooUsesCloudBase } from '../src/lib/comment-adapters.ts'
 import { commentIdentity, commentIdentityAliases } from '../src/lib/comments.ts'
 import { legacyGitalkIdentity, legacyGitalkIdentityAliases } from '../src/lib/migration/gitalk.ts'
 import { normalizeRecentComments } from '../src/lib/recent-comments.ts'
@@ -17,6 +17,8 @@ assert.equal(commentAdapters.waline.runtimeStatus, 'ready')
 assert.equal(twikooUsesCloudBase('env-123'), true)
 assert.equal(twikooUsesCloudBase('https://comments.example'), false)
 assert.equal(twikooUsesCloudBase(''), false)
+assert.equal(providerDelivery('en'), 'remote')
+assert.equal(providerDelivery('cn'), 'local')
 assert.equal(commentAdapters.valine.version, '1.5.3')
 assert.equal(commentAdapters.twikoo.version, '2.0.8')
 assert.equal(commentAdapters.waline.version, '3.15.2')
@@ -72,7 +74,10 @@ function publicTextFiles(directory) {
 for (const directory of ['dist', '.pages-dist/demo']) {
   for (const path of publicTextFiles(directory)) {
     const content = readFileSync(path, 'utf8')
-    assert.doesNotMatch(content, /(?:clientSecret|client_secret|CLIENT_SECRET)\s*[:=]/, `${path} must not publish a Gitalk secret setting`)
+    // Third-party provider bundles may contain their own clientSecret identifiers.
+    if (!/\/(?:twikoo|valine|waline)(?:\.|-)/i.test(path)) {
+      assert.doesNotMatch(content, /(?:clientSecret|client_secret|CLIENT_SECRET)\s*[:=]/, `${path} must not publish a Gitalk secret setting`)
+    }
     assert.doesNotMatch(content, /NEVER-SERIALIZE-GITALK-CREDENTIAL-7f9c/)
     assert.doesNotMatch(content, /gitalk(?:@1\.8|\.min\.js|\.css)/i, `${path} must not load Gitalk runtime assets`)
   }

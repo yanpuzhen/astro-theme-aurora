@@ -39,6 +39,7 @@ test('Pagefind search returns a real result and navigates with the configured ba
   test.skip(Boolean(process.env.PLAYWRIGHT_PAGES), 'The RC suite targets the standalone Astro build.')
   await page.goto(route('/search/'))
   const input = page.getByRole('searchbox', { name: 'Search' })
+  await expect(page.locator('astro-island:has(input.search-input)')).not.toHaveAttribute('ssr', '')
   for (const query of ['Aurora', 'architecture', 'migration']) {
     await input.fill(query)
     await expect.poll(async () => page.locator('.search-result').count(), { message: `Pagefind query: ${query}` }).toBeGreaterThan(0)
@@ -54,6 +55,7 @@ test('Chinese Pagefind search stays inside the Chinese locale', async ({ page })
   test.skip(Boolean(process.env.PLAYWRIGHT_PAGES), 'The RC suite targets the standalone Astro build.')
   await page.goto(route('/cn/search/'))
   const input = page.getByRole('searchbox', { name: '搜索' })
+  await expect(page.locator('astro-island:has(input.search-input)')).not.toHaveAttribute('ssr', '')
   for (const query of ['迁移', '中文', 'Aurora 迁移']) {
     await input.fill(query)
     await expect.poll(async () => page.locator('.search-result').count(), { message: `Chinese Pagefind query: ${query}` }).toBeGreaterThan(0)
@@ -66,6 +68,7 @@ test('header search keeps a static fallback and opens the Aurora modal', async (
   await page.goto(route('/'))
   const trigger = page.getByRole('link', { name: 'Open search' })
   await expect(trigger).toHaveAttribute('href', `${basePath}/search/`)
+  await expect(page.locator('astro-island:has(a.header-search-trigger)')).not.toHaveAttribute('ssr', '')
   await trigger.click()
   await expect(page.locator('.search-modal')).toBeVisible()
   const input = page.getByRole('searchbox', { name: 'Search' })

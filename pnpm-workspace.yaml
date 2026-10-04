@@ -1,3 +1,7 @@
 allowBuilds:
+  '@parcel/watcher': false
   esbuild: true
   sharp: true
+minimumReleaseAgeExclude:
+  - '@cap.js/widget@0.1.58'
+  - '@cap.js/wasm@0.0.8'

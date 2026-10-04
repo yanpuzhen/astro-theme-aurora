@@ -18,3 +18,7 @@ Start with `pnpm install --frozen-lockfile`, `pnpm check`, and `pnpm build` loca
 | Search has no results | Build with `pnpm build` so Pagefind indexes `dist/`; check that public posts exist in the current locale and that result paths include the base. |
 
 For GitHub Pages, verify **Settings → Pages** uses GitHub Actions and the workflow publishes `dist`; see [its guide](/deploy/github-pages). For Cloudflare Pages or Vercel, inspect the host's build log, selected production branch, environment scope and output directory. A 404 from a deployed page is not evidence that the comment provider failed; test each layer separately.
+
+## CDN delivery mode
+
+If CN mode still requests a public CDN, rebuild and deploy the complete `dist/`, then classify the browser request: Aurora static asset versus comment backend, avatar or user content. Check whether an old EN build or cache is still being served.

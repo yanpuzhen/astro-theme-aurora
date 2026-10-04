@@ -139,6 +139,7 @@ function normalizeLegacyConfig(input: unknown, warn: (message: string) => void):
   }
   if (isRecord(raw.site_meta)) {
     const meta = raw.site_meta
+    const hasLegacyMetadata = ['description', 'favicon', 'author', 'keywords'].some((key) => own(meta, key))
     setIfMissing(site, 'description', meta.description)
     if (typeof meta.favicon === 'string' && meta.favicon.trim()) setIfMissing(site, 'logo', meta.favicon)
     if (typeof meta.author === 'string' && meta.author.trim()) setIfMissing(site, 'author', meta.author)
@@ -147,8 +148,9 @@ function normalizeLegacyConfig(input: unknown, warn: (message: string) => void):
       setIfMissing(seo, 'keywords', meta.keywords.split(',').map((keyword) => keyword.trim()).filter(Boolean))
       raw.seo = seo
     }
-    delete raw.site_meta
-    warn('Aurora 2 `site_meta` fields were mapped to site metadata where supported; CDN-specific behavior is not migrated.')
+    for (const key of ['description', 'favicon', 'author', 'keywords']) delete meta[key]
+    raw.site_meta = meta
+    if (hasLegacyMetadata) warn('Aurora 2 `site_meta` metadata fields were mapped to site/SEO fields; `cdn` remains the asset delivery setting.')
   }
 
   const legacyPoliceBeian = isRecord(raw.police_beian) ? raw.police_beian : undefined
@@ -352,5 +354,9 @@ export function loadAuroraConfig(options: LoaderOptions = {}): AuroraConfig {
   }
   const result = AuroraConfigSchema.safeParse(overridden)
   if (!result.success) throw new Error(configError(result.error))
+  if (result.data.siteMeta.cdn === 'cn' && result.data.comments.waline.reaction) {
+    warn('comments.waline.reaction: true is unavailable with site_meta.cdn: cn; Waline reaction is disabled because its default images load from a public static CDN.')
+    result.data.comments.waline.reaction = false
+  }
   return deepFreeze(result.data)
 }

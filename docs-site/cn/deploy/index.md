@@ -9,3 +9,7 @@ Aurora 是**静态 Astro 站点**。执行 `pnpm install --frozen-lockfile` 后�
 | [GitHub Pages](/cn/deploy/github-pages) | `pnpm build` | `dist` | `https://username.github.io` | `/my-blog/` | Actions / 是 | 项目站需要仓库 base。 |
 
 在 `_config.yml` 设置 `site.url`/`site.base`，或在生产构建时通过 `ASTRO_SITE`/`ASTRO_BASE` 覆盖。不要把预览 URL 设为生产规范 URL。对于 `https://example.com/blog/`，源站为 `https://example.com`，base 为 `/blog/`。先阅读[域名与 Base 路径](/cn/deploy/domains-and-base)，再选择平台指南。部署后在实际 base 下检查文章、`/rss.xml`、`/cn/rss.xml`、`/sitemap.xml`、`/robots.txt`、搜索、图片和两种语言。
+
+## CDN 模式
+
+在国内网络部署时，可在 `_config.yml` 设置 `site_meta.cdn: cn` 并完整发布构建后的 `dist/`；这只保证 Aurora 管理的静态运行时资源由本站提供，不保证评论后端、giscus 或用户图片可达。

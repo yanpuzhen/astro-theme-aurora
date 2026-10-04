@@ -2,7 +2,26 @@
 
 ## Unreleased
 
-- Restored `site_meta.cdn: en | cn`: EN keeps 3.0.0 provider delivery; CN self-hosts Aurora-managed comment clients, Waline CSS, Valine LeanCloud SDK, Twikoo Prism/OwO assets, and Cap CAPTCHA dependencies. CN disables Valine's built-in emoji picker and Waline's default emoji and reaction assets. `@waline/emojis@1.1.0` declares `GPL-3.0-or-later`; Aurora does not redistribute that asset set in CN. Static builds include third-party notices and license texts.
+## [3.0.1] - 2026-10-05
+
+### Asset delivery
+
+- Added `site_meta.cdn: en | cn`, independent of site language. The default `en` preserves Aurora 3.0.0 public-CDN provider loading; `cn` serves Aurora-managed static runtime assets from the built site.
+- Localized Valine and its LeanCloud SDK, Twikoo HTTP/CloudBase clients, Waline JavaScript/CSS, Twikoo Prism components/themes and OwO data, and Cap CAPTCHA JavaScript/WASM/fallback dependencies.
+- Comment backends and service APIs remain external. CN disables Valine's built-in remote emoji picker and Waline's default remote emoji/reaction resources. `@waline/emojis@1.1.0` declares `GPL-3.0-or-later`; Aurora does not redistribute that asset set in CN.
+
+### Compatibility and reliability
+
+- Preserved EN provider behavior, comment identity, Recent Comments, provider code splitting, and the static architecture.
+- Added root and nested-base support for CN assets in production and development, safe JavaScript URL generation for special base paths, and default configuration fallback when the optional config file is absent.
+- Expanded browser and network regression coverage for comment-provider interactions and optional assets.
+
+### Distribution
+
+- Added generated `THIRD_PARTY_NOTICES.txt`, deployable `_licenses` material, embedded dependency/version provenance, hashwx corresponding source, and artifact-oriented redistribution inventory drift checks.
+- Included available upstream license/source material. Some upstream packages supply license declarations without standalone notice files; Aurora preserves those declarations and their provenance.
+
+### Documentation
 
 - Completed bilingual end-user guides for configuration, content, deployment, comments, SEO/feeds, environment variables and troubleshooting; expanded navigation and schema reference.
 
